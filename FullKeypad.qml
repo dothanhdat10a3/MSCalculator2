@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.3
 Rectangle {
     property double result: 0.0
     property bool clearS: false
-    property string operation:''
+    property string operations:''
     Rectangle{
         id:optionBar
         width: 320
@@ -173,6 +173,7 @@ Rectangle {
            resultText.text +="9";
         });
         buttonAdd.clicked.connect(function(){
+            operations = '+'
             result += parseFloat(resultText.text)
             clearS = true;
             console.log(result);
@@ -182,16 +183,19 @@ Rectangle {
             result = 0.0;
         });
         buttonSubtract.clicked.connect(function(){
+            operations = '-'
             result -= parseFloat(resultText.text)
             clearS = true;
             console.log(result);
         });
         buttonMultiply.clicked.connect(function(){
+            operations = '*'
             result *= parseFloat(resultText.text)
             clearS = true;
             console.log(result);
         });
         buttonDivide.clicked.connect(function(){
+            operations = '/'
             result /= parseFloat(resultText.text)
             clearS = true;
             console.log(result);
@@ -199,16 +203,17 @@ Rectangle {
 
 
         buttonEquals.clicked.connect(function(){
-            if (operation === '+'){
+            if (operations === '+'){
                 result += parseFloat(resultText.text);
-            }else if(operation === '-'){
+            }else if(operations === '-'){
                 result -= parseFloat(resultText.text);
-            }else if(operation === 'x'){
+            }else if(operations === 'x'){
                 result *= parseFloat(resultText.text);
-            }else if(operation === '/'){
+            }else if(operations === '/'){
                 result /= parseFloat(resultText.text)
             }
             resultText.text = result;
+            result = 0.0;
 
         });
     }
