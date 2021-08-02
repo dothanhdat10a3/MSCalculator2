@@ -3,35 +3,46 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
 Item {
-    RowLayout {
-        anchors.top: parent
-        width: parent.width
+    Row{
         Button {
-            text: 'Page 1'
-            Layout.fillWidth: true
+            text: 'Keypad'
+            width: optionBar.width/5
+            height: optionBar.height
+            anchors.fill: parent.height
             onClicked: {
-                load_page(text);
+                loadPage(text);
             }
         }
         Button {
             text: 'Page 2'
-            Layout.fillWidth: true
+            width: optionBar.width/5
+            height: optionBar.height
             onClicked: {
-                load_page(text);
+                loadPage(text);
             }
         }
         Button {
             text: 'Page 3'
-            Layout.fillWidth: true
+            width: optionBar.width/5
+            height: optionBar.height
             onClicked: {
-                load_page(text);
+                loadPage(text);
             }
         }
         Button {
             text: 'Page 4'
-            Layout.fillWidth: true
+            width: optionBar.width/5
+            height: optionBar.height
             onClicked: {
-                load_page(text);
+                loadPage(text);
+            }
+        }
+        Button {
+            text: 'Page 5'
+            width: optionBar.width/5
+            height: optionBar.height
+            onClicked: {
+                loadPage(text);
             }
         }
     }

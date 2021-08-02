@@ -31,11 +31,6 @@ Window {
         console.log("onNumberOctChanged" + numberOct)
     }
 
-    Number{
-        id: numberClass
-    }
-
-
     Text{
         id:programNameText
         anchors.left: parent.left
@@ -47,29 +42,40 @@ Window {
         fontSizeMode: Text.Fit
 
     }
+
     Rectangle{
         id: expressionArea
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: programNameText.bottom
         height: 30
-        border.color: "black"
+        border.color: "#D3D3D3"
         border.width: 1
         color: "#E8E8E8"
+        Text {
+            id: expressionText
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignRight
+            verticalAlignment: Text.TopRight
+            text: ""
+            color: "black"
+            font.pixelSize: 25
+            font.family: "Arial"
+            fontSizeMode: Text.Fit
+        }
     }
 
     //resultArea
     Rectangle {
-
         id: resultArea
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: expressionArea.bottom
         height: 40
-        border.color: "black"
+        border.color: "#D3D3D3"
         border.width: 1
         color: "#E8E8E8"
-        Text {
+        TextField {
             id: resultText
             //            anchors.leftMargin: buttons.implicitMargin
             //            anchors.rightMargin: buttons.implicitMargin
@@ -80,9 +86,10 @@ Window {
             color: "black"
             font.pixelSize: 25
             font.family: "Arial"
-            fontSizeMode: Text.Fit
+            //fontSizeMode: Text.Fit
         }
     }
+
     //hexResult
     Rectangle {
         id: hexResult
@@ -90,7 +97,7 @@ Window {
         anchors.right: parent.right
         anchors.top: resultArea.bottom
         height:23.5
-        border.color: "black"
+        border.color: "#D3D3D3"
         border.width: 1
         color: "#E8E8E8"
         Rectangle{
@@ -99,9 +106,9 @@ Window {
             y:0
             height: hexResult.height
             width: hexResult.height*2
-            border.color: "black"
+            border.color: "#E8E8E8"
             border.width: 1
-            color: "#E8E8E8"
+            color: "#D3D3D3"
             Text {
                 id: hexadecimal
                 text: "HEX"
@@ -112,15 +119,14 @@ Window {
                 fontSizeMode: Text.Fit
             }
         }
-
         Rectangle{
             id:hexValue
             anchors.left: hex.right
             height: hexResult.height
             width:hexResult.width-hex.width
-            border.color: "black"
+            border.color: "#E8E8E8"
             border.width: 1
-            color: "#E8E8E8"
+            color: "#D3D3D3"
             Text {
 
                 id: hexadecimalValue
@@ -134,18 +140,18 @@ Window {
                 fontSizeMode: Text.Fit
             }
         }
-
         MouseArea
         {
             anchors.fill: hexResult
             onClicked: {
-                hex.color = "#D3D3D3"
-                hexValue.color= "#D3D3D3"
+                hex.color = "#E8E8E8"
+                hexValue.color= "#E8E8E8"
                 // Qt.quit();
             }
         }
 
     }
+
     //DecResult
     Rectangle {
         id: decResult
@@ -153,18 +159,18 @@ Window {
         anchors.right: parent.right
         anchors.top: hexResult.bottom
         height:23.5
-        border.color: "black"
+        border.color: "#E8E8E8"
         border.width: 1
-        color: "#E8E8E8"
+        color: "#D3D3D3"
         Rectangle{
             id:dec
             x:0
             y:0
             height: decResult.height
             width: decResult.height*2
-            border.color: "black"
+            border.color: "#E8E8E8"
             border.width: 1
-            color: "#E8E8E8"
+            color: "#D3D3D3"
             Text {
                 id: decadecimal
                 text: "DEC"
@@ -180,9 +186,9 @@ Window {
             anchors.left: dec.right
             height: decResult.height
             width: decResult.width-dec.width
-            border.color: "black"
+            border.color: "#E8E8E8"
             border.width: 1
-            color: "red"
+            color: "#D3D3D3"
             Text {
                 id: decimalValue
                 text: numberDec
@@ -198,12 +204,11 @@ Window {
         {
             anchors.fill: decResult
             onClicked: {
-                dec.color = "#D3D3D3"
-                decValue.color= "#D3D3D3"
+                dec.color = "#E8E8E8"
+                decValue.color= "#E8E8E8"
                 // Qt.quit();
             }
         }
-
     }
 
     //octResult
@@ -213,18 +218,18 @@ Window {
         anchors.right: parent.right
         anchors.top: decResult.bottom
         height:23.5
-        border.color: "black"
+        border.color: "#E8E8E8"
         border.width: 1
-        color: "#E8E8E8"
+        color: "#D3D3D3"
         Rectangle{
             id:oct
             x:0
             y:0
             height: octResult.height
             width: octResult.height*2
-            border.color: "black"
+            border.color: "#E8E8E8"
             border.width: 1
-            color: "#E8E8E8"
+            color: "#D3D3D3"
             Text {
                 id: octal
                 text: "OCT"
@@ -240,9 +245,9 @@ Window {
             anchors.left: oct.right
             height: octResult.height
             width: octResult.width-oct.width
-            border.color: "black"
+            border.color: "#E8E8E8"
             border.width: 1
-            color: "#E8E8E8"
+            color: "#D3D3D3"
             Text {
                 id: octalValue
                 text: numberOct
@@ -258,12 +263,13 @@ Window {
         {
             anchors.fill: octResult
             onClicked: {
-                oct.color = "#D3D3D3"
-                octValue.color= "#D3D3D3"
+                oct.color = "#E8E8E8"
+                octValue.color= "#E8E8E8"
                 // Qt.quit();
             }
         }
     }
+
     //binResult
     Rectangle {
         id: binResult
@@ -271,18 +277,18 @@ Window {
         anchors.right: parent.right
         anchors.top: octResult.bottom
         height:23.5
-        border.color: "black"
+        border.color: "#E8E8E8"
         border.width: 1
-        color: "#E8E8E8"
+        color: "#D3D3D3"
         Rectangle{
             id:bin
             x:0
             y:0
             height: binResult.height
             width: binResult.height*2
-            border.color: "black"
+            border.color: "#E8E8E8"
             border.width: 1
-            color: "#E8E8E8"
+            color: "#D3D3D3"
             Text {
                 id: binary
                 text: "BIN"
@@ -298,9 +304,9 @@ Window {
             anchors.left: bin.right
             height: binResult.height
             width:binResult.width-bin.width
-            border.color: "black"
+            border.color: "#E8E8E8"
             border.width: 1
-            color: "#E8E8E8"
+            color: "#D3D3D3"
             Text {
                 id: binaryValue
                 text: numberBin
@@ -316,17 +322,16 @@ Window {
         {
             anchors.fill: binResult
             onClicked: {
-                bin.color = "#D3D3D3"
-                binValue.color= "#D3D3D3"
+                bin.color = "#E8E8E8"
+                binValue.color= "#E8E8E8"
                 // Qt.quit();
             }
         }
-
     }
 
     //StackView
     Rectangle{
-        id: multiview
+        id: multiView
         anchors.top:binResult.bottom
         anchors.left: parent.left
         anchors.right: parent.right
@@ -334,44 +339,51 @@ Window {
 
 
         StackView {
-            anchors.fill: multiview
-            id: mystackview
-            initialItem: starting_page
+            anchors.fill: multiView
+            id: myStackView
+            initialItem: keypadPage
         }
     }
 
     Component {
-        id: starting_page
-        StartingPage {}
+        id: keypadPage
+        FullKeypad {}
     }
     Component {
-        id: second_page
+        id: secondPage
         SecondPage {}
     }
     Component {
-        id: third_page
+        id: thirdPage
         ThirdPage {}
     }
     Component {
-        id: fourth_page
+        id: fourthPage
         FourthPage {}
     }
+    Component {
+        id: fifthPage
+        FifthPage {}
+    }
 
-    function load_page(page) {
+
+    function loadPage(page) {
         switch (page) {
-        case 'Page 1':
-            mystackview.push(starting_page);
+        case 'Keypad':
+            myStackView.push(keypadPage);
             break;
         case 'Page 2':
-            mystackview.push(second_page);
+            myStackView.push(secondPage);
             break;
         case 'Page 3':
-            mystackview.push(third_page);
+            myStackView.push(thirdPage);
             break;
         case 'Page 4':
-            mystackview.push(fourth_page);
+            myStackView.push(fourthPage);
+            break;
+        case 'Page 5':
+            myStackView.push(fifthPage);
             break;
         }
     }
-
 }

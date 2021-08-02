@@ -8,7 +8,7 @@ Item {
         Repeater {
             model: ListModel {
                 ListElement {
-                    page: 'Page 1'
+                    page: 'Keypad'
                 }
                 ListElement {
                     page: 'Page 2'
@@ -26,7 +26,7 @@ Item {
             Button {
                 text: page
                 onClicked: {
-                    load_page(text);
+                    loadPage(text);
                 }
             }
         }
