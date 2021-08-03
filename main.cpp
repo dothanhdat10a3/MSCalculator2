@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Number>("ToDo",1,0,"Number");
 
     Number* number = new Number();
-    number->setDecNumber(1020);
+    number->setDecNumber(1510);
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

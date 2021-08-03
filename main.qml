@@ -16,6 +16,8 @@ Window {
     property var numberOct
     property var numberBin
 
+    property int radix: 10
+
     onNumberDecChanged:
     {
         console.log("onNumberDecChanged" + numberDec)
@@ -52,7 +54,7 @@ Window {
         border.color: "#D3D3D3"
         border.width: 1
         color: "#E8E8E8"
-        Text {
+        TextField {
             id: expressionText
             anchors.fill: parent
             horizontalAlignment: Text.AlignRight
@@ -61,7 +63,7 @@ Window {
             color: "black"
             font.pixelSize: 25
             font.family: "Arial"
-            fontSizeMode: Text.Fit
+            //fontSizeMode: Text.Fit
         }
     }
 
@@ -82,7 +84,7 @@ Window {
             anchors.fill: parent
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.TopRight
-            text: "0"
+            text: ""
             color: "black"
             font.pixelSize: 25
             font.family: "Arial"
@@ -144,6 +146,7 @@ Window {
         {
             anchors.fill: hexResult
             onClicked: {
+                radix = 16
                 hex.color = "#E8E8E8"
                 hexValue.color= "#E8E8E8"
                 // Qt.quit();
@@ -204,6 +207,7 @@ Window {
         {
             anchors.fill: decResult
             onClicked: {
+                radix = 10;
                 dec.color = "#E8E8E8"
                 decValue.color= "#E8E8E8"
                 // Qt.quit();
@@ -263,6 +267,7 @@ Window {
         {
             anchors.fill: octResult
             onClicked: {
+                radix = 8;
                 oct.color = "#E8E8E8"
                 octValue.color= "#E8E8E8"
                 // Qt.quit();
@@ -322,6 +327,7 @@ Window {
         {
             anchors.fill: binResult
             onClicked: {
+                radix = 2;
                 bin.color = "#E8E8E8"
                 binValue.color= "#E8E8E8"
                 // Qt.quit();
@@ -350,7 +356,7 @@ Window {
         FullKeypad {}
     }
     Component {
-        id: secondPage
+        id: bitToggle
         SecondPage {}
     }
     Component {
@@ -372,8 +378,8 @@ Window {
         case 'Keypad':
             myStackView.push(keypadPage);
             break;
-        case 'Page 2':
-            myStackView.push(secondPage);
+        case 'BitKey':
+            myStackView.push(bitToggle);
             break;
         case 'Page 3':
             myStackView.push(thirdPage);

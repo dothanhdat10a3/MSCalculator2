@@ -14,7 +14,7 @@ Item {
             }
         }
         Button {
-            text: 'Page 2'
+            text: 'BitKey'
             width: optionBar.width/5
             height: optionBar.height
             onClicked: {

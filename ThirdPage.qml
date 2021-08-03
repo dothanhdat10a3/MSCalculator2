@@ -11,7 +11,7 @@ Item {
                     page: 'Keypad'
                 }
                 ListElement {
-                    page: 'Page 2'
+                    page: 'BitKey'
                 }
                 ListElement {
                     page: 'Page 3'
