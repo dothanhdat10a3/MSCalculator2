@@ -1,7 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.3
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.12
 import ToDo 1.0
 
 
@@ -37,10 +37,10 @@ Window {
         id:programNameText
         anchors.left: parent.left
         anchors.top: parent.top
-        text: "Programmer"
+        text: "  =   Programmer"
         color: "black"
         font.pixelSize: 20
-        font.family: "Open Sans Regular"
+        font.family: "Abadi"
         fontSizeMode: Text.Fit
 
     }
@@ -60,8 +60,8 @@ Window {
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.TopRight
             text: ""
-            color: "black"
-            font.pixelSize: 25
+            color: "#444444"
+            font.pixelSize: 18
             font.family: "Arial"
             //fontSizeMode: Text.Fit
         }
@@ -84,7 +84,7 @@ Window {
             anchors.fill: parent
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.TopRight
-            text: ""
+            text: "0"
             color: "black"
             font.pixelSize: 25
             font.family: "Arial"
@@ -147,8 +147,17 @@ Window {
             anchors.fill: hexResult
             onClicked: {
                 radix = 16
-                hex.color = "#E8E8E8"
-                hexValue.color= "#E8E8E8"
+                hex.color = "#33CCFF"
+                hexValue.color= "#33CCFF"
+
+                dec.color = "#D3D3D3"
+                decValue.color= "#D3D3D3"
+
+                oct.color = "#D3D3D3"
+                octValue.color= "#D3D3D3"
+
+                bin.color = "#D3D3D3"
+                binValue.color= "#D3D3D3"
                 // Qt.quit();
             }
         }
@@ -164,7 +173,7 @@ Window {
         height:23.5
         border.color: "#E8E8E8"
         border.width: 1
-        color: "#D3D3D3"
+        color: "#33CCFF"
         Rectangle{
             id:dec
             x:0
@@ -173,7 +182,7 @@ Window {
             width: decResult.height*2
             border.color: "#E8E8E8"
             border.width: 1
-            color: "#D3D3D3"
+            color: "#33CCFF"
             Text {
                 id: decadecimal
                 text: "DEC"
@@ -191,7 +200,7 @@ Window {
             width: decResult.width-dec.width
             border.color: "#E8E8E8"
             border.width: 1
-            color: "#D3D3D3"
+            color: "#33CCFF"
             Text {
                 id: decimalValue
                 text: numberDec
@@ -208,8 +217,17 @@ Window {
             anchors.fill: decResult
             onClicked: {
                 radix = 10;
-                dec.color = "#E8E8E8"
-                decValue.color= "#E8E8E8"
+                hex.color = "#D3D3D3"
+                hexValue.color= "#D3D3D3"
+
+                dec.color = "#33CCFF"
+                decValue.color= "#33CCFF"
+
+                oct.color = "#D3D3D3"
+                octValue.color= "#D3D3D3"
+
+                bin.color = "#D3D3D3"
+                binValue.color= "#D3D3D3"
                 // Qt.quit();
             }
         }
@@ -268,8 +286,19 @@ Window {
             anchors.fill: octResult
             onClicked: {
                 radix = 8;
-                oct.color = "#E8E8E8"
-                octValue.color= "#E8E8E8"
+
+                hex.color = "#D3D3D3"
+                hexValue.color= "#D3D3D3"
+
+                dec.color = "#D3D3D3"
+                decValue.color= "#D3D3D3"
+
+                oct.color = "#33CCFF"
+                octValue.color= "#33CCFF"
+
+                bin.color = "#D3D3D3"
+                binValue.color= "#D3D3D3"
+
                 // Qt.quit();
             }
         }
@@ -328,8 +357,21 @@ Window {
             anchors.fill: binResult
             onClicked: {
                 radix = 2;
-                bin.color = "#E8E8E8"
-                binValue.color= "#E8E8E8"
+
+
+                hex.color = "#D3D3D3"
+                hexValue.color= "#D3D3D3"
+
+                dec.color = "#D3D3D3"
+                decValue.color= "#D3D3D3"
+
+                oct.color = "#D3D3D3"
+                octValue.color= "#D3D3D3"
+
+                bin.color = "#33CCFF"
+                binValue.color= "#33CCFF"
+
+
                 // Qt.quit();
             }
         }
@@ -351,13 +393,14 @@ Window {
         }
     }
 
+    //qmlRegisterType( QUrl( "qrc:/MyType.qml" ), "LibA", 1, 0, "MyType" ); --> Fix: Invalid property name M16
     Component {
         id: keypadPage
         FullKeypad {}
     }
     Component {
         id: bitToggle
-        SecondPage {}
+        BitTogglingKeypad{}
     }
     Component {
         id: thirdPage
@@ -382,7 +425,7 @@ Window {
             myStackView.push(bitToggle);
             break;
         case 'Page 3':
-            myStackView.push(thirdPage);
+            myStackView.push(keypadPage);
             break;
         case 'Page 4':
             myStackView.push(fourthPage);

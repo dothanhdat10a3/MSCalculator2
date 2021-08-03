@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
-
+qmlRegisterType( QUrl( "qrc:/MyType.qml" ), "LibA", 1, 0, "MyType" );
     qmlRegisterType<Number>("ToDo",1,0,"Number");
 
     Number* number = new Number();
