@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
-import ToDo 1.0
+import QtQml 2.1 // Fix: component property name
 
 
 Window {
@@ -17,6 +17,7 @@ Window {
     property var numberBin
 
     property int radix: 10
+
 
     onNumberDecChanged:
     {
@@ -144,6 +145,7 @@ Window {
         }
         MouseArea
         {
+            id:hexMouse
             anchors.fill: hexResult
             onClicked: {
                 radix = 16
@@ -158,6 +160,8 @@ Window {
 
                 bin.color = "#D3D3D3"
                 binValue.color= "#D3D3D3"
+
+
                 // Qt.quit();
             }
         }
@@ -214,6 +218,7 @@ Window {
         }
         MouseArea
         {
+            id: decMouse
             anchors.fill: decResult
             onClicked: {
                 radix = 10;
@@ -283,6 +288,7 @@ Window {
         }
         MouseArea
         {
+            id: octMouse
             anchors.fill: octResult
             onClicked: {
                 radix = 8;
@@ -354,6 +360,7 @@ Window {
         }
         MouseArea
         {
+            id: binMouse
             anchors.fill: binResult
             onClicked: {
                 radix = 2;

@@ -1,13 +1,13 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <number.h>
-
-#include <QQuickView>
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QCoreApplication>
 #include <QVariantList>
 #include <QStringList>
+
+#include <number.h>
+#include <controller.h>
 
 int main(int argc, char *argv[])
 {
@@ -16,13 +16,15 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
-qmlRegisterType( QUrl( "qrc:/MyType.qml" ), "LibA", 1, 0, "MyType" );
-    qmlRegisterType<Number>("ToDo",1,0,"Number");
 
-    Number* number = new Number();
-    number->setDecNumber(1510);
+    Number *number = new Number();
+    /*Number* number = new Number();
+    number->castToDecimal(DEC_RADIX_TYPE);
+    number->setNumberFromDecToRadixOther();*/
 
     QQmlApplicationEngine engine;
+    // engine.rootContext()->setContextProperty("number", number);
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
@@ -30,12 +32,20 @@ qmlRegisterType( QUrl( "qrc:/MyType.qml" ), "LibA", 1, 0, "MyType" );
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+    QQmlContext* rootContext = engine.rootContext();
+    rootContext->setContextProperty("number", number);
+
+    QQmlContext* context = engine.rootContext();
+    context->setContextProperty("calController", Controller::getInstance());
+
 
     QObject* root = engine.rootObjects().first();
+    number->setRootObject(root);
+    /*
     root->setProperty("numberHex", number->getHexNumber());
     root->setProperty("numberDec", number->getDecNumber());
-    root->setProperty("numberOct", number->getOctNumber());
-    root->setProperty("numberBin", number->getBinNumber());
+    root->setProperty("numberOct",number->getOctNumber());
+    root->setProperty("numberBin",number->getBinNumber());*/
 
     return app.exec();
 }

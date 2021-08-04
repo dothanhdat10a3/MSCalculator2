@@ -1,7 +1,6 @@
 #include "number.h"
 #include <QDebug>
 #include <iostream>
-#include <charconv>
 
 using namespace std;
 
@@ -15,32 +14,118 @@ Number::~Number()
 
 }
 
-void Number::setDecNumber(int iNumber)
+//////// BEGIN CAST OTHER RADIX TO DECIMAIL
+void Number::setNumberInput( int numberInput)
 {
-    m_decNumber = iNumber;
+    qDebug("called");
+    m_numberInput = to_string(numberInput);
+    castToDecimal(DEC_RADIX_TYPE);
+    setNumberFromDecToRadixOther();
+}
+
+void Number::castToDecimal(RADIX_TYPE radixType)
+{
+    switch (radixType) {
+    case HEX_RADIX_TYPE:
+        m_number = castNumberFromHexToDec(m_numberInput);
+        break;
+    case DEC_RADIX_TYPE:
+        m_number = castNumberFromDecToDec(m_numberInput);
+        qDebug("m_number: %d", m_number);
+        break;
+    case OCT_RADIX_TYPE:
+        m_number = castNumberFromOctToDec(m_numberInput);
+        break;
+    case BIN_RADIX_TYPE:
+        m_number = castNumberFromBinToDec(m_numberInput);
+        break;
+    default:
+        break;
+    }
+}
+
+int Number::castNumberFromHexToDec(string numberInput)
+{
+    int base = 16;
+    int m_decNumberOne = 0 , m_decNumberTwo = 0;
+
+    for(int i = numberInput.length() - 1, j = 0; i >= 0; i--, j++){
+        char temp = numberInput[j];
+
+        if(temp >=65){
+            m_decNumberOne += (numberInput[j]-55)*(pow(base,i));
+            qDebug("temp: %c", temp);
+        }
+
+        else {
+             m_decNumberTwo += (numberInput[j]-48)*(pow(base,i));
+        }
+        m_decNumber = m_decNumberOne + m_decNumberTwo;
+    }
+
+    return m_decNumber;
+}
+
+int Number::castNumberFromDecToDec(string numberInput)
+{
+    int base = 10;
+
+    for(int i = numberInput.length() - 1, j = 0; i >= 0; i--, j++){
+
+        m_decNumber += (numberInput[j] - 48)*(pow(base,i));
+    }
+
+    return m_decNumber;
+}
+
+int Number::castNumberFromOctToDec(string numberInput)
+{
+    int base = 8;
+    for(int i = numberInput.length() - 1, j = 0; i >= 0; i--, j++){
+        m_decNumber += (numberInput[j]-48)*(pow(base,i));
+    }
+
+    return m_decNumber;
+}
+
+int Number::castNumberFromBinToDec(string numberInput)
+{
+    int base = 2;
+    for(int i = numberInput.length() - 1, j = 0; i >= 0; i--, j++){
+        m_decNumber += (numberInput[j]-48)*(pow(base,i));
+    }
+
+    return m_decNumber;
+}
+
+////////END CAST OTHER RADIX TO DECIMAL
+
+
+//////// BEGIN CAST DECCIMAL RADIX TO OTHER RADIX
+void Number::setNumberFromDecToRadixOther()
+{
+    m_decNumber = m_number;
+    qDebug("m_decNumber: %d", m_decNumber);
     m_hexNumber = castFromDecToHex(m_decNumber);
     m_octNumber = castFromDecToOct(m_decNumber);
     m_binNumber = castFromDecToBin(m_decNumber);
 
-    qDebug() << "dec" << m_decNumber;
     qDebug() << "hex" << m_hexNumber;
+    qDebug() << "dec" << m_decNumber;
     qDebug() << "oct" << m_octNumber;
     qDebug() << "bin" << m_binNumber;
+    m_rootObject->setProperty("numberHex", getHexNumber());
+    m_rootObject->setProperty("numberDec", getDecNumber());
+    m_rootObject->setProperty("numberOct", getOctNumber());
+    m_rootObject->setProperty("numberBin", getBinNumber());
+
+    m_decNumber = 0; // If we don't have this line, it will be add +=
+
 }
 
-void Number::setHexNumber(QVector<char> hNumber)
+void Number::setRootObject(QObject *rootObject)
 {
-    m_hexNumber = hNumber;
-}
-
-void Number::setBinNumber(QVector<int> bNumber)
-{
-    m_binNumber = bNumber;
-}
-
-void Number::setOctNumber(QVector<int> oNumber)
-{
-    m_octNumber = oNumber;
+    m_rootObject = rootObject;
 }
 
 int Number::getDecNumber()
@@ -50,14 +135,14 @@ int Number::getDecNumber()
 
 QString Number::getHexNumber()
 {
-    QString result = "";
+    QString result = "";//0
 
     for (auto v: m_hexNumber)
     {
         char c = v;
+        //result.clear();
         result.push_back(c);
     }
-
     return result;
 }
 
@@ -87,65 +172,9 @@ QString Number::getBinNumber()
     return result;
 }
 
-int Number::castNumberFromHexToDec(QVector<char> m_hexNumber)
-{
-    int len = m_hexNumber.size();
-
-    // Initializing base value to 1, i.e 16^0
-    int base = 1;
-
-
-    // Extracting characters as digits from last character
-    for (int i=len-1; i>=0; i--)
-    {
-        // if character lies in '0'-'9', converting
-        // it to integral 0-9 by subtracting 48 from
-        // ASCII value.
-        if (m_hexNumber[i]>='0' && m_hexNumber[i]<='9')
-        {
-            m_decNumber += (m_hexNumber[i] - 48)*base;
-
-            // incrementing base by power
-            base = base * 16;
-        }
-
-        // if character lies in 'A'-'F' , converting
-        // it to integral 10 - 15 by subtracting 55
-        // from ASCII value
-        else if (m_hexNumber[i]>='A' && m_hexNumber[i]<='F')
-        {
-            m_decNumber += (m_hexNumber[i] - 55)*base;
-
-            // incrementing base by power
-            base = base*16;
-        }
-    }
-    return m_decNumber;
-}
-
-
-int Number::castNumberFromOctToDec(QVector<int> m_octNumber)
-{
-    int base = 8;
-    for(int i = m_octNumber.length()-1,j=0;i>=0;i--,j++){
-        m_decNumber += (m_octNumber[j]-48)*(pow(base,i));
-    }
-    return m_decNumber;
-}
-
-int Number::castNumberFromBinToDec(QVector<int> m_binNumber)
-{
-    int base = 2;
-    for(int i = m_binNumber.length()-1,j=0;i>=0;i--,j++){
-        m_decNumber += (m_binNumber[j]-48)*(pow(base,i));
-    }
-    return m_decNumber;
-
-}
-
 QVector<char> Number::castFromDecToHex(int number)
 {
-    QVector<char> dNumber;
+    QVector<char> hexNumber;
     char hexaDeciNum[100];
     int i = 0;
     while (number != 0) {
@@ -167,11 +196,10 @@ QVector<char> Number::castFromDecToHex(int number)
 
     for (int j = i - 1; j >= 0; j--)
     {
-        dNumber.push_back(hexaDeciNum[j]);
+        hexNumber.push_back(hexaDeciNum[j]);
     }
 
-
-    return dNumber;
+    return hexNumber;
 }
 
 QVector<int> Number::castFromDecToOct(int number)
@@ -213,6 +241,4 @@ QVector<int> Number::castFromDecToBin(int number)
 
     return binNumber;
 }
-
-
-
+//////// BEGIN CAST DECCIMAL RADIX TO OTHER RADIX

@@ -1,6 +1,7 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
+import QtQml 2.1 // Fix: component property name M10
 
 
 
@@ -113,13 +114,85 @@ Rectangle {
     }
 
     property int result: 0
-    //property bool clear: false
+    // property bool clearScr: false
     property string operation: ''
     property bool checkOperationClicked: false // check "+ - x /" clicked.
 
 
-//qmlRegisterType( QUrl( "qrc:/MyType.qml" ), "LibA", 1, 0, "MyType" ); --> Fix: Invalid property name M16
+    //qmlRegisterType( QUrl( "qrc:/MyType.qml" ), "LibA", 1, 0, "MyType" ); --> Fix: Invalid property name M16
     Component.onCompleted: {
+        buttonDot.enabled = false
+        hexMouse.clicked.connect(function(){
+            button2.enabled = true
+            button3.enabled = true
+            button4.enabled = true
+            button5.enabled = true
+            button6.enabled = true
+            button7.enabled = true
+            button8.enabled = true
+            button9.enabled = true
+            buttonA.enabled = true
+            buttonB.enabled = true
+            buttonC.enabled = true
+            buttonD.enabled = true
+            buttonE.enabled = true
+            buttonF.enabled = true
+        });
+
+        decMouse.clicked.connect(function(){
+            button2.enabled = true
+            button3.enabled = true
+            button4.enabled = true
+            button5.enabled = true
+            button6.enabled = true
+            button7.enabled = true
+            button8.enabled = true
+            button9.enabled = true
+
+            buttonA.enabled = false
+            buttonB.enabled = false
+            buttonC.enabled = false
+            buttonD.enabled = false
+            buttonE.enabled = false
+            buttonF.enabled = false
+        });
+        octMouse.clicked.connect(function(){
+            button2.enabled = true
+            button3.enabled = true
+            button4.enabled = true
+            button5.enabled = true
+            button6.enabled = true
+            button7.enabled = true
+            button8.enabled = false
+            button9.enabled = false
+
+            buttonA.enabled = false
+            buttonB.enabled = false
+            buttonC.enabled = false
+            buttonD.enabled = false
+            buttonE.enabled = false
+            buttonF.enabled = false
+        });
+
+        binMouse.clicked.connect(function(){
+            button2.enabled = false
+            button3.enabled = false
+            button4.enabled = false
+            button5.enabled = false
+            button6.enabled = false
+            button7.enabled = false
+            button8.enabled = false
+            button9.enabled = false
+
+            buttonA.enabled = false
+            buttonB.enabled = false
+            buttonC.enabled = false
+            buttonD.enabled = false
+            buttonE.enabled = false
+            buttonF.enabled = false
+        });
+
+
         button0.clicked.connect(function(){
             if(checkOperationClicked == true){
                 resultText.clear();
@@ -354,7 +427,7 @@ Rectangle {
             result += parseInt(resultText.text,radix);
             checkOperationClicked = false;
             resultText.clear();
-            // clear = true;
+            //clearScr = true;
         });
         buttonSubtract.clicked.connect(function(){
             operation = '-'
@@ -364,18 +437,18 @@ Rectangle {
             result += parseInt(resultText.text,radix);
             checkOperationClicked = false;
             resultText.clear();
-            // clear = true;
+            //clearScr = true;
         });
         buttonMultiply.clicked.connect(function(){
-            operation = 'x'
+            operation = '*'
 
             if(checkOperationClicked == true) expressionText.clear();
-            expressionText.text += parseInt(resultText.text,radix) + "x";
+            expressionText.text += parseInt(resultText.text,radix) + "*";
 
             result += parseInt(resultText.text,radix);
             checkOperationClicked = false;
             resultText.clear();
-            //clear = true;
+            //clearScr = true;
         });
         buttonDivide.clicked.connect(function(){
             operation = '/'
@@ -385,7 +458,7 @@ Rectangle {
             result += parseInt(resultText.text,radix);
             checkOperationClicked = false;
             resultText.clear();
-            //   clear = true;
+            // clearScr = true;
         });
 
         buttonEquals.clicked.connect(function(){
@@ -395,28 +468,36 @@ Rectangle {
             if(operation === ''){
                 expressionText.text += parseInt(resultText.text,radix) + "=";
                 result += parseInt(resultText.text,radix);
+                console.log("result: %d",result);
             }
             else if(operation === '+'){
                 expressionText.text += parseInt(resultText.text,radix) + "=";
                 result += parseInt(resultText.text,radix);
+                console.log("result: %d",result);
             } else if (operation === '-'){
                 expressionText.text += parseInt(resultText.text,radix) + "=";
                 result -= parseInt(resultText.text,radix);
-            } else if (operation === 'x'){
+                console.log("result: %d",result);
+            } else if (operation === '*'){
                 expressionText.text += parseInt(resultText.text,radix) + "=";
                 result *= parseInt(resultText.text,radix);
+                console.log("result: %d",result);
             }else if (operation === '/'){
                 expressionText.text += parseInt(resultText.text,radix) + "=";
                 result /= parseInt(resultText.text,radix);
+                console.log("result: %d",result);
             }else if (operation === '%'){
                 expressionText.text += parseInt(resultText.text,radix) + "=";
                 result %= parseInt(resultText.text,radix);
+                console.log("result: %d",result);
             }
 
             resultText.text = result;
+            number.setNumberInput(resultText.text);
             checkOperationClicked = true;
             result = 0;
         });
+
     }
 }
 
