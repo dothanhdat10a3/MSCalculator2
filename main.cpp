@@ -35,8 +35,8 @@ int main(int argc, char *argv[])
     QQmlContext* rootContext = engine.rootContext();
     rootContext->setContextProperty("number", number);
 
-    QQmlContext* context = engine.rootContext();
-    context->setContextProperty("calController", Controller::getInstance());
+   // QQmlContext* context = engine.rootContext();
+    //context->setContextProperty("calController", Controller::getInstance());
 
 
     QObject* root = engine.rootObjects().first();

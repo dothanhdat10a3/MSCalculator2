@@ -9,46 +9,48 @@ Rectangle {
         id:optionBar
         width: 320
         height:35
+        color: "green"
         Row{
+            spacing: 4
             Button {
                 text: 'Keypad'
-                width: optionBar.width/5
-                height: optionBar.height
+                width: optionBar.width/5.5
+                height: optionBar.height-3
                 font.bold: true
-                //anchors.fill: parent.height
                 onClicked: {
                     loadPage(text);
                 }
             }
             Button {
                 text: 'BitKey'
-                width: optionBar.width/5
-                height: optionBar.height
+                width: optionBar.width/5.5
+                height: optionBar.height-3
                 font.bold: true
                 onClicked: {
                     loadPage(text);
                 }
             }
             Button {
-                text: 'Page 3'
-                width: optionBar.width/5
-                height: optionBar.height
+                text: 'DataType'
+                width: optionBar.width/4
+                height: optionBar.height-3
+                font.bold: true
                 onClicked: {
                     loadPage(text);
                 }
             }
             Button {
-                text: 'Page 4'
-                width: optionBar.width/5
-                height: optionBar.height
+                text: 'MS'
+                width: optionBar.width/6
+                height: optionBar.height-3
                 onClicked: {
                     loadPage(text);
                 }
             }
             Button {
-                text: 'Page 5'
-                width: optionBar.width/5
-                height: optionBar.height
+                text: 'M'
+                width: optionBar.width/6
+                height: optionBar.height-3
                 onClicked: {
                     loadPage(text);
                 }
@@ -325,11 +327,7 @@ Rectangle {
                 id: buttonIndex0; width: bitTogglingKeypad.width/16; height: bitTogglingKeypad.height/8; font.bold: true; font.pixelSize: 15;text:"0"
 
             }
-
-
-
         }
-
     }
 
     Component.onCompleted: {

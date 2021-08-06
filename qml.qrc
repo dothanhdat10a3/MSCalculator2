@@ -3,8 +3,6 @@
         <file>main.qml</file>
         <file>FullKeypad.qml</file>
         <file>ThirdPage.qml</file>
-        <file>FourthPage.qml</file>
-        <file>FifthPage.qml</file>
         <file>BitTogglingKeypad.qml</file>
     </qresource>
 </RCC>

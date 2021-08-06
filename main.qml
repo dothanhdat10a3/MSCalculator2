@@ -413,14 +413,7 @@ Window {
         id: thirdPage
         ThirdPage {}
     }
-    Component {
-        id: fourthPage
-        FourthPage {}
-    }
-    Component {
-        id: fifthPage
-        FifthPage {}
-    }
+
 
 
     function loadPage(page) {
@@ -431,15 +424,10 @@ Window {
         case 'BitKey':
             myStackView.push(bitToggle);
             break;
-        case 'Page 3':
-            myStackView.push(keypadPage);
+        case 'M':
+            myStackView.push(thirdPage);
             break;
-        case 'Page 4':
-            myStackView.push(fourthPage);
-            break;
-        case 'Page 5':
-            myStackView.push(fifthPage);
-            break;
+
         }
     }
 }

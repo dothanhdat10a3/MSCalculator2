@@ -23,6 +23,12 @@ void Number::setNumberInput( int numberInput)
     setNumberFromDecToRadixOther();
 }
 
+void Number::setRadixChoice(int radixChoose)
+{
+    m_radixChoose = radixChoose;
+    qDebug("m_radixChoose: %d", m_radixChoose);
+}
+
 void Number::castToDecimal(RADIX_TYPE radixType)
 {
     switch (radixType) {
@@ -135,7 +141,7 @@ int Number::getDecNumber()
 
 QString Number::getHexNumber()
 {
-    QString result = "";//0
+    QString result = "";
 
     for (auto v: m_hexNumber)
     {

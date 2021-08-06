@@ -54,11 +54,12 @@ public:
 
 public:
     Q_INVOKABLE void setNumberInput(int numberInput);
-
+    Q_INVOKABLE void setRadixChoice(int radixChoose);
 
 private:
     int m_number = 0;
-    string m_numberInput= "300";//100006: DEC
+    string m_numberInput;
+    int m_radixChoose;
 
     int m_decNumber = 0;
     QVector<char> m_hexNumber;
